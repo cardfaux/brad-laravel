@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Example\ExampleController;
+use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\User\UserController;
 
 /*
@@ -15,8 +15,12 @@ use App\Http\Controllers\User\UserController;
 |
 */
 
+//* User related routes
 Route::get('/', [UserController::class, 'showCorrectHomepage']);
-Route::get('/about', [ExampleController::class, 'AboutPage']);
-
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout']);
+
+//* Blog post related routes
+Route::get('/create-post', [PostController::class, 'showCreateForm'])->name('create-post');
+Route::post('/create-post', [PostController::class, 'storeNewPost'])->name('store-new-post');
