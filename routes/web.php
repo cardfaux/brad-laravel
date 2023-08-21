@@ -16,12 +16,12 @@ use App\Http\Controllers\User\UserController;
 */
 
 //* User related routes
-Route::get('/', [UserController::class, 'showCorrectHomepage']);
-Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
-Route::post('/logout', [UserController::class, 'logout']);
+Route::get('/', [UserController::class, 'showCorrectHomepage'])->name('login');
+Route::post('/register', [UserController::class, 'register'])->middleware('guest');
+Route::post('/login', [UserController::class, 'login'])->middleware('guest');
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 //* Blog post related routes
-Route::get('/create-post', [PostController::class, 'showCreateForm'])->name('create-post');
-Route::post('/create-post', [PostController::class, 'storeNewPost'])->name('store-new-post');
+Route::get('/create-post', [PostController::class, 'showCreateForm'])->middleware('auth')->name('create-post');
+Route::post('/create-post', [PostController::class, 'storeNewPost'])->middleware('auth')->name('store-new-post');
 Route::get('/post/{post}', [PostController::class, 'viewSinglePost'])->name('view-single-post');
