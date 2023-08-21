@@ -15,7 +15,7 @@ use App\Http\Controllers\User\UserController;
 |
 */
 
-Route::get('/', [ExampleController::class, 'HomePage']);
+Route::get('/', [UserController::class, 'showCorrectHomepage']);
 Route::get('/about', [ExampleController::class, 'AboutPage']);
 
 Route::post('/register', [UserController::class, 'register']);
