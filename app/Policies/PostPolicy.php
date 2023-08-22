@@ -37,7 +37,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): Response
     {
-        return $user->id === $post->user_id
+        return $user->id === $post->user_id || $user->isAdmin === 1
             ? Response::allow()
             : Response::deny('You do not own this post.');
     }
@@ -47,7 +47,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): Response
     {
-        return $user->id === $post->user_id
+        return $user->id === $post->user_id || $user->isAdmin === 1
             ? Response::allow()
             : Response::deny('You do not own this post.');
     }
