@@ -9,6 +9,18 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    public function storeAvatar(Request $request)
+    {
+        $newAvatarName = time() . '-' . $request->file('avatar')->getClientOriginalName();
+        $request->file('avatar')->storeAs('public/avatars', $newAvatarName);
+        return 'hey';
+    }
+
+    public function showAvatarForm()
+    {
+        return view('avatar-form');
+    }
+
     public function profile(User $user)
     {
         return view('profile-posts', ['username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count()]);
