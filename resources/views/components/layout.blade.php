@@ -21,8 +21,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet" />
+
+    {{--
     <link rel="stylesheet" href="http://localhost:5173/resources/css/app.css" />
-    <script type="module" src="http://localhost:5173/resources/js/app.js" defer></script>
+    <script type="module" src="http://localhost:5173/resources/js/app.js" defer></script> --}}
+
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <script src="{{ mix('js/app.js') }}" defer></script>
     {{-- @vite(['/resources/css/app.css'])
     @vite(['/resources/js/app.js']) --}}
 </head>
@@ -94,6 +99,11 @@
         <p class="m-0">Copyright &copy; {{date('Y')}} <a href="/" class="text-muted">OurApp</a>. All rights reserved.
         </p>
     </footer>
+
+    @auth
+    <div data-username="{{ auth()->user()->username }}" data-avatar="{{ auth()->user()->avatar }}" id="chat-wrapper"
+        class="chat-wrapper shadow border-top border-left border-right"></div>
+    @endauth
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
