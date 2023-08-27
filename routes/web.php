@@ -49,6 +49,18 @@ Route::get('/profile/{user:username}', [UserController::class, 'profile'])->name
 Route::get('/profile/{user:username}/followers', [UserController::class, 'profileFollowers'])->name('profile-followers');
 Route::get('/profile/{user:username}/following', [UserController::class, 'profileFollowing'])->name('profile-following');
 
+//* Raw Profile related routes
+Route::group(['prefix' => 'profile', 'middleware' => 'cache.headers:public;max_age=20;etag'], function () {
+    Route::get('/{user:username}/raw', [UserController::class, 'profileRaw'])->name('profile-raw');
+    Route::get('/{user:username}/followers/raw', [UserController::class, 'profileFollowersRaw'])->name('profile-followers-raw');
+    Route::get('/{user:username}/following/raw', [UserController::class, 'profileFollowingRaw'])->name('profile-following-raw');
+});
+// Route::middleware('cache.headers:public;max_age=20;etag')->group(function () {
+//     Route::get('/profile/{user:username}/raw', [UserController::class, 'profileRaw'])->name('profile-raw');
+//     Route::get('/profile/{user:username}/followers/raw', [UserController::class, 'profileFollowersRaw'])->name('profile-followers-raw');
+//     Route::get('/profile/{user:username}/following/raw', [UserController::class, 'profileFollowingRaw'])->name('profile-following-raw');
+// });
+
 // Chat route
 Route::post('/send-chat-message', function (Request $request) {
     $formFields = $request->validate([
